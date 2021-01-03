@@ -1,11 +1,12 @@
 import { Component } from 'react';
-import './App.css';
+import Palette from './Palette';
+import { palettes } from './seedColor';
 
 class App extends Component {
   render = () => {
     return (
-      <div className="App">
-        <p>app</p>
+      <div>
+        <Palette palette={palettes[1]} />
       </div>
     );
   };
