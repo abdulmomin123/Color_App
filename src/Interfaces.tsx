@@ -4,3 +4,8 @@ export interface Palette {
   emoji: string;
   colors: { name: string; color: string }[];
 }
+
+export interface Color {
+  name: string;
+  color: string;
+}
