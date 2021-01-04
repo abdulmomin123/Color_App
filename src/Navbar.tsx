@@ -11,21 +11,21 @@ export default class Navbar extends Component<{
     const { changeLevel, level } = this.props;
 
     return (
-      <header>
+      <header className="Navbar">
         <div className="logo">
-          <a href="/">React Color Picker</a>
+          <a href="/">reactcolorpicker</a>
         </div>
-
         <div className="slider-container">
-          <div className="span">Level: {level} </div>
-          <Slider
-            className="slider"
-            defaultValue={level}
-            min={100}
-            max={900}
-            step={100}
-            onAfterChange={changeLevel}
-          />
+          <span>Level: {level}</span>
+          <div className="slider">
+            <Slider
+              defaultValue={level}
+              min={100}
+              max={900}
+              step={100}
+              onAfterChange={changeLevel}
+            />
+          </div>
         </div>
       </header>
     );
