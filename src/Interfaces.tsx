@@ -21,3 +21,5 @@ export interface Color {
   rgb: string;
   rgba: string;
 }
+
+export type ColorFormats = 'hex' | 'rgb' | 'rgba';

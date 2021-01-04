@@ -5,6 +5,7 @@ import './ColorBox.css';
 
 export default class ColorBox extends Component<{
   color: Interfaces.Color;
+  format: Interfaces.ColorFormats;
 }> {
   state = {
     copied: false,
@@ -17,19 +18,20 @@ export default class ColorBox extends Component<{
   };
 
   render() {
-    const { hex, name } = this.props.color;
+    const { format, color } = this.props;
+    const { name } = color;
     const { copied } = this.state;
 
     return (
-      <CopyToClipboard text={hex} onCopy={this.handleCopy}>
-        <div style={{ background: hex }} className="ColorBox">
+      <CopyToClipboard text={color[format]} onCopy={this.handleCopy}>
+        <div style={{ background: color[format] }} className="ColorBox">
           <div
-            style={{ background: hex }}
+            style={{ background: color[format] }}
             className={`copy-overlay ${copied ? 'show' : ''}`}
           />
           <div className={`copy-msg ${copied ? 'show' : ''}`}>
             <h1>copied!</h1>
-            <p>{hex}</p>
+            <p>{color[format]}</p>
           </div>
           <div className="copy-container">
             <div className="box-content">
