@@ -1,9 +1,8 @@
 import { Component } from 'react';
-import * as Interfaces from './Interfaces';
 import './Palette.css';
-import Slider from 'rc-slider';
-import 'rc-slider/assets/index.css';
+import * as Interfaces from './Interfaces';
 import ColorBox from './ColorBox';
+import Navbar from './Navbar';
 
 export default class Palette extends Component<{
   palette: Interfaces.Palette;
@@ -26,13 +25,7 @@ export default class Palette extends Component<{
     return (
       <div className="Palette">
         {/* Navbar */}
-        <Slider
-          defaultValue={level}
-          min={100}
-          max={900}
-          step={100}
-          onAfterChange={this.changeLevel}
-        />
+        <Navbar level={this.state.level} changeLevel={this.changeLevel} />
 
         {/* Color boxes */}
         <div className="Palette-colors">{colorBoxes}</div>
