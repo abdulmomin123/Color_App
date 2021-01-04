@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import Palette from './Palette';
 import { palettes } from './seedColor';
+import { generatePalette } from './colorHelpers';
 
 class App extends Component {
   render = () => {
@@ -13,3 +14,5 @@ class App extends Component {
 }
 
 export default App;
+
+console.log(generatePalette(palettes[1]));
