@@ -1,29 +1,23 @@
-export interface Palette {
+export interface StarterPalette {
   paletteName: string;
   id: string;
   emoji: string;
   colors: { name: string; color: string }[];
 }
 
-export interface CompletePalette {
+export interface Palette {
   paletteName: string;
   id: string;
   emoji: string;
   colors: {
-    [key: string]: CompleteColor[];
+    [key: string]: Color[];
   };
 }
 
 export interface Color {
-  name: string;
-  color: string;
-}
-
-export interface CompleteColor {
-  color: string;
-  hex: string;
   id: string;
   name: string;
+  hex: string;
   rgb: string;
   rgba: string;
 }

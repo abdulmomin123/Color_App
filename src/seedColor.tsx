@@ -1,6 +1,6 @@
 import * as Interfaces from './Interfaces';
 
-export const palettes: Interfaces.Palette[] = [
+export const palettes: Interfaces.StarterPalette[] = [
   {
     paletteName: 'Material UI Colors',
     id: 'material-ui-colors',
