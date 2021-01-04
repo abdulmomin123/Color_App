@@ -22,13 +22,10 @@ export default class Palette extends Component<{
 
   render() {
     const { palette } = this.props;
+    const { paletteName, emoji } = palette;
     const { level } = this.state;
     const colorBoxes = palette.colors[level].map(color => (
-      <ColorBox
-        key={color.name}
-        color={color}
-        format={this.state.colorFormat}
-      />
+      <ColorBox key={color.id} color={color} format={this.state.colorFormat} />
     ));
 
     return (
@@ -44,7 +41,10 @@ export default class Palette extends Component<{
         <div className="Palette-colors">{colorBoxes}</div>
 
         {/* Footer */}
-        <p>Palette</p>
+        <footer className="Palette-footer">
+          {paletteName}
+          <span className="emoji">{emoji}</span>
+        </footer>
       </div>
     );
   }
