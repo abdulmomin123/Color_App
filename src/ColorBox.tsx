@@ -3,10 +3,12 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import * as Interfaces from './Interfaces';
 import './ColorBox.css';
 
-export default class ColorBox extends Component<{
+interface Props {
   color: Interfaces.Color;
   format: Interfaces.ColorFormats;
-}> {
+}
+
+export default class ColorBox extends Component<Props> {
   state = {
     copied: false,
   };

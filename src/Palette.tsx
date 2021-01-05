@@ -4,9 +4,11 @@ import * as Interfaces from './Interfaces';
 import ColorBox from './ColorBox';
 import Navbar from './Navbar';
 
-export default class Palette extends Component<{
+interface Props {
   palette: Interfaces.Palette;
-}> {
+}
+
+export default class Palette extends Component<Props> {
   state: { colorFormat: Interfaces.ColorFormats; level: number } = {
     level: 500,
     colorFormat: 'hex',
