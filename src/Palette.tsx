@@ -1,36 +1,10 @@
 import { Component } from 'react';
-import './Palette.css';
-import { withStyles, createStyles } from '@material-ui/styles';
+import { withStyles } from '@material-ui/styles';
 import * as Interfaces from './Interfaces';
+import styles from './styles/PaletteStyles';
 import ColorBox from './ColorBox';
 import Navbar from './Navbar';
 import Footer from './Footer';
-
-const styles = createStyles({
-  Palette: {
-    height: '100vh',
-    display: 'flex',
-    flexDirection: 'column',
-  },
-
-  PaletteColors: {
-    height: '90vh',
-  },
-
-  PaletteFooter: {
-    height: '5vh',
-    fontWeight: 500,
-    backgroundColor: '#eee',
-    display: 'flex',
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-  },
-
-  emoji: {
-    fontSize: '1.5rem',
-    margin: '0 1rem',
-  },
-});
 
 interface Props {
   palette: Interfaces.Palette;

@@ -1,40 +1,9 @@
 import { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { withStyles, createStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import * as Interfacaes from './Interfaces';
+import styles from './styles/PaletteListStyles';
 import MiniPalette from './MiniPalette';
-
-const styles = createStyles({
-  root: {
-    backgroundColor: 'blue',
-    height: '100vh',
-    display: 'flex',
-    alignItems: 'flex-start',
-    justifyContent: 'center',
-  },
-  container: {
-    width: '50%',
-    display: 'flex',
-    alignItems: 'flex-start',
-    flexDirection: 'column',
-    flexWrap: 'wrap',
-  },
-  nav: {
-    display: 'flex',
-    width: '100%',
-    justifyContent: 'space-between',
-  },
-  palettes: {
-    boxSizing: 'border-box',
-    width: '100%',
-    display: 'grid',
-    gridTemplateColumns: 'repeat(3, 30%)',
-    gridGap: '5%',
-  },
-  link: {
-    textDecoration: 'none',
-  },
-});
 
 interface Props {
   palettes: Interfacaes.StarterPalette[];
