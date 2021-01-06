@@ -31,7 +31,7 @@ export default class Palette extends Component<Props, State> {
     const { level } = this.state;
     const colorBoxes = palette.colors[level].map(color => (
       <ColorBox
-        showLink={true}
+        showFullPalette={true}
         color={color}
         format={this.state.colorFormat}
         key={color.name}
