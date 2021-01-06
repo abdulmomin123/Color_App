@@ -15,7 +15,8 @@ export interface Palette {
 }
 
 export interface Color {
-  id: string;
+  paletteId: string;
+  colorId: string;
   name: string;
   hex: string;
   rgb: string;

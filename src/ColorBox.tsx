@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import * as Interfaces from './Interfaces';
 import './ColorBox.css';
@@ -6,22 +7,27 @@ import './ColorBox.css';
 interface Props {
   color: Interfaces.Color;
   format: Interfaces.ColorFormats;
+  showLink: boolean;
 }
 
-export default class ColorBox extends Component<Props> {
+interface State {
+  copied: boolean;
+}
+
+export default class ColorBox extends Component<Props, State> {
   state = {
     copied: false,
   };
 
   handleCopy = () => {
     this.setState({ copied: true }, () =>
-      setTimeout(() => this.setState({ copied: false }), 1000)
+      setTimeout(() => this.setState({ copied: false }), 2500)
     );
   };
 
   render() {
-    const { format, color } = this.props;
-    const { name } = color;
+    const { format, color, showLink } = this.props;
+    const { name, paletteId, colorId } = color;
     const { copied } = this.state;
 
     return (
@@ -43,7 +49,16 @@ export default class ColorBox extends Component<Props> {
             <button className="copy-button">Copy</button>
           </div>
 
-          <span className="see-more">More</span>
+          {showLink ? (
+            <Link
+              to={`/palette/${paletteId}/${colorId}`}
+              onClick={e => {
+                e.stopPropagation();
+              }}
+            >
+              <span className="see-more">More</span>
+            </Link>
+          ) : null}
         </div>
       </CopyToClipboard>
     );

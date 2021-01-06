@@ -47,11 +47,13 @@ const styles = createStyles({
 interface Props {
   palette: Interfaces.StarterPalette;
   classes: Record<string, string>;
+  goToPalette: (id: string) => void;
 }
 
 const MiniPalette = (props: Props) => {
   const {
     classes,
+    goToPalette,
     palette: { id, paletteName, emoji, colors },
   } = props;
 
@@ -60,14 +62,13 @@ const MiniPalette = (props: Props) => {
       className={classes.miniColor}
       style={{ background: color.color }}
       key={color.name}
-    ></div>
+    />
   ));
 
-  console.log(id, paletteName, emoji, colors);
-  console.clear();
+  const handleClick = () => goToPalette(id);
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} onClick={handleClick}>
       <div className={classes.colors}>
         {/* The mini color boxes */}
         {miniColorBoxes}

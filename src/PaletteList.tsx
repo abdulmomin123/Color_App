@@ -1,5 +1,5 @@
 import { Component } from 'react';
-// import { Link } from 'react-router-dom';
+import { RouteComponentProps } from 'react-router';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import * as Interfacaes from './Interfaces';
 import MiniPalette from './MiniPalette';
@@ -36,9 +36,13 @@ const styles = createStyles({
 interface Props {
   palettes: Interfacaes.StarterPalette[];
   classes: Record<string, string>;
+  rProps: RouteComponentProps;
 }
 
 class PaletteList extends Component<Props> {
+  goToPalette = (id: string) =>
+    this.props.rProps.history.push(`/palette/${id}`);
+
   render() {
     const { palettes, classes } = this.props;
 
@@ -50,7 +54,11 @@ class PaletteList extends Component<Props> {
           </nav>
           <div className={classes.palettes}>
             {palettes.map(palette => (
-              <MiniPalette palette={palette} key={palette.id} />
+              <MiniPalette
+                goToPalette={this.goToPalette}
+                palette={palette}
+                key={palette.id}
+              />
             ))}
           </div>
         </div>

@@ -8,26 +8,33 @@ interface Props {
   palette: Interfaces.Palette;
 }
 
-export default class Palette extends Component<Props> {
+interface State {
+  colorFormat: Interfaces.ColorFormats;
+  level: number;
+}
+
+export default class Palette extends Component<Props, State> {
   state: { colorFormat: Interfaces.ColorFormats; level: number } = {
     level: 500,
     colorFormat: 'hex',
   };
 
-  changeLevel = (level: number) => {
-    this.setState({ level });
-  };
+  changeLevel = (level: number) => this.setState({ level });
 
-  changeColorFormat = (colorFormat: Interfaces.ColorFormats) => {
+  changeColorFormat = (colorFormat: Interfaces.ColorFormats) =>
     this.setState({ colorFormat });
-  };
 
   render() {
     const { palette } = this.props;
     const { paletteName, emoji } = palette;
     const { level } = this.state;
     const colorBoxes = palette.colors[level].map(color => (
-      <ColorBox key={color.id} color={color} format={this.state.colorFormat} />
+      <ColorBox
+        showLink={true}
+        color={color}
+        format={this.state.colorFormat}
+        key={color.name}
+      />
     ));
 
     return (

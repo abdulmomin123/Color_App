@@ -31,8 +31,9 @@ export const generatePalette = (palette: Interfaces.StarterPalette) => {
 
     for (let i in scale) {
       const Color: Interfaces.Color = {
+        paletteId: palette.id,
+        colorId: color.name.toLowerCase().replace(/ /g, '-'),
         name: `${color.name} ${levels[i]}`,
-        id: color.name.toLowerCase().replace(/ /g, '-'),
         hex: scale[i],
         rgb: chroma(scale[i]).css(),
         rgba: chroma(scale[i]).css().replace('rgb', 'rgba').replace(')', ',1)'),

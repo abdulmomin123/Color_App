@@ -10,11 +10,18 @@ import './Navbar.css';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 
-export default class Navbar extends Component<{
+interface Props {
   level: number;
   changeLevel: (level: number) => void;
   changeColorFormat: (colorFormat: Interfaces.ColorFormats) => void;
-}> {
+}
+
+interface State {
+  colorFormat: Interfaces.ColorFormats;
+  open: boolean;
+}
+
+export default class Navbar extends Component<Props, State> {
   state: { colorFormat: Interfaces.ColorFormats; open: boolean } = {
     colorFormat: 'hex',
     open: false,
@@ -34,9 +41,9 @@ export default class Navbar extends Component<{
 
     return (
       <header className="Navbar">
-        <div className="logo">
-          <Link to={'/'}>React Color Picker</Link>
-        </div>
+        <Link className="logo" to="/">
+          React Color Picker
+        </Link>
         <div className="slider-container">
           <span>Level: {level}</span>
           <div className="slider">
