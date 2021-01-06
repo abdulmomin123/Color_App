@@ -1,13 +1,57 @@
 import { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { withStyles, createStyles } from '@material-ui/styles';
 import * as Interfaces from './Interfaces';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import ColorBox from './ColorBox';
 
+const styles = createStyles({
+  Palette: {
+    height: '100vh',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+
+  PaletteColors: {
+    height: '90vh',
+  },
+  goBack: {
+    width: '20%',
+    height: '50%',
+    background: '#000',
+    margin: '0 auto',
+    display: 'inline-block',
+    position: 'relative',
+    cursor: 'pointer',
+    marginBottom: '-3.5px',
+    opacity: 1,
+
+    '& a': {
+      width: '100px',
+      height: '30px',
+      position: 'absolute',
+      display: 'inline-block',
+      top: '50%',
+      left: '50%',
+      marginLeft: '-50px',
+      marginTop: '-15px',
+      textAlign: 'center',
+      textDecoration: 'none',
+      background: 'rgba(255, 255, 255, 0.3)',
+      lineHeight: '30px',
+      color: 'white',
+      textTransform: 'uppercase',
+    },
+  },
+});
+
 interface Props {
   palette: Interfaces.Palette;
   colorId: string;
+  classes: {
+    [key: string]: string;
+  };
 }
 
 interface State {
@@ -15,7 +59,7 @@ interface State {
   shades: Interfaces.Color[];
 }
 
-export default class SingleColorPalette extends Component<Props, State> {
+class SingleColorPalette extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
@@ -45,6 +89,7 @@ export default class SingleColorPalette extends Component<Props, State> {
   render() {
     const { shades, colorFormat } = this.state;
     const { emoji, paletteName, id } = this.props.palette;
+    const { classes } = this.props;
 
     const colorBoxes = shades.map(color => (
       <ColorBox
@@ -56,15 +101,13 @@ export default class SingleColorPalette extends Component<Props, State> {
     ));
 
     return (
-      <div className="Palette SingleColorPalette">
+      <div className={classes.Palette}>
         <Navbar changeColorFormat={this.changeColorFormat} />
 
-        <div className="Palette-colors">
+        <div className={classes.PaletteColors}>
           {colorBoxes}
-          <div className="go-back ColorBox">
-            <Link to={`/palette/${id}`} className="back-button">
-              Go Back
-            </Link>
+          <div className={classes.goBack}>
+            <Link to={`/palette/${id}`}>Go Back</Link>
           </div>
         </div>
 
@@ -73,3 +116,5 @@ export default class SingleColorPalette extends Component<Props, State> {
     );
   }
 }
+
+export default withStyles(styles)(SingleColorPalette);

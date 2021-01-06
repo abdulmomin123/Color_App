@@ -1,12 +1,42 @@
 import { Component } from 'react';
 import './Palette.css';
+import { withStyles, createStyles } from '@material-ui/styles';
 import * as Interfaces from './Interfaces';
 import ColorBox from './ColorBox';
 import Navbar from './Navbar';
 import Footer from './Footer';
 
+const styles = createStyles({
+  Palette: {
+    height: '100vh',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+
+  PaletteColors: {
+    height: '90vh',
+  },
+
+  PaletteFooter: {
+    height: '5vh',
+    fontWeight: 500,
+    backgroundColor: '#eee',
+    display: 'flex',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+
+  emoji: {
+    fontSize: '1.5rem',
+    margin: '0 1rem',
+  },
+});
+
 interface Props {
   palette: Interfaces.Palette;
+  classes: {
+    [key: string]: string;
+  };
 }
 
 interface State {
@@ -14,7 +44,7 @@ interface State {
   level: number;
 }
 
-export default class Palette extends Component<Props, State> {
+class Palette extends Component<Props, State> {
   state: { colorFormat: Interfaces.ColorFormats; level: number } = {
     level: 500,
     colorFormat: 'hex',
@@ -26,7 +56,7 @@ export default class Palette extends Component<Props, State> {
     this.setState({ colorFormat });
 
   render() {
-    const { palette } = this.props;
+    const { palette, classes } = this.props;
     const { paletteName, emoji } = palette;
     const { level } = this.state;
     const colorBoxes = palette.colors[level].map(color => (
@@ -39,7 +69,7 @@ export default class Palette extends Component<Props, State> {
     ));
 
     return (
-      <div className="Palette">
+      <div className={classes.Palette}>
         {/* Navbar */}
         <Navbar
           level={this.state.level}
@@ -48,7 +78,7 @@ export default class Palette extends Component<Props, State> {
         />
 
         {/* Color boxes */}
-        <div className="Palette-colors">{colorBoxes}</div>
+        <div className={classes.PaletteColors}>{colorBoxes}</div>
 
         {/* Footer */}
         <Footer paletteName={paletteName} emoji={emoji} />
@@ -56,3 +86,5 @@ export default class Palette extends Component<Props, State> {
     );
   }
 }
+
+export default withStyles(styles)(Palette);
