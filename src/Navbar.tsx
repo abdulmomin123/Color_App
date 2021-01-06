@@ -11,8 +11,8 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 
 interface Props {
-  level: number;
-  changeLevel: (level: number) => void;
+  level?: number;
+  changeLevel?: (level: number) => void;
   changeColorFormat: (colorFormat: Interfaces.ColorFormats) => void;
 }
 
@@ -44,18 +44,21 @@ export default class Navbar extends Component<Props, State> {
         <Link className="logo" to="/">
           React Color Picker
         </Link>
-        <div className="slider-container">
-          <span>Level: {level}</span>
-          <div className="slider">
-            <Slider
-              defaultValue={level}
-              min={100}
-              max={900}
-              step={100}
-              onAfterChange={changeLevel}
-            />
+
+        {level ? (
+          <div className="slider-container">
+            <span>Level: {level}</span>
+            <div className="slider">
+              <Slider
+                defaultValue={level}
+                min={100}
+                max={900}
+                step={100}
+                onAfterChange={changeLevel}
+              />
+            </div>
           </div>
-        </div>
+        ) : null}
 
         <div className="select-container">
           <Select onChange={this.handleChange} value={colorFormat}>

@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import * as Interfaces from './Interfaces';
-// import Navbar from './Navbar'
+import Navbar from './Navbar';
+import Footer from './Footer';
 import ColorBox from './ColorBox';
 
 interface Props {
@@ -23,6 +24,9 @@ export default class SingleColorPalette extends Component<Props, State> {
     };
   }
 
+  changeColorFormat = (colorFormat: Interfaces.ColorFormats) =>
+    this.setState({ colorFormat });
+
   gatherShades = () => {
     const {
       palette: { colors },
@@ -39,6 +43,8 @@ export default class SingleColorPalette extends Component<Props, State> {
 
   render() {
     const { shades, colorFormat } = this.state;
+    const { emoji, paletteName } = this.props.palette;
+
     const colorBoxes = shades.map(color => (
       <ColorBox
         showLink={false}
@@ -50,8 +56,11 @@ export default class SingleColorPalette extends Component<Props, State> {
 
     return (
       <div className="Palette">
-        <h1>Single Color Palette</h1>
+        <Navbar changeColorFormat={this.changeColorFormat} />
+
         <div className="Palette-colors">{colorBoxes}</div>
+
+        <Footer paletteName={paletteName} emoji={emoji} />
       </div>
     );
   }

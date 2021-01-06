@@ -3,6 +3,7 @@ import './Palette.css';
 import * as Interfaces from './Interfaces';
 import ColorBox from './ColorBox';
 import Navbar from './Navbar';
+import Footer from './Footer';
 
 interface Props {
   palette: Interfaces.Palette;
@@ -50,10 +51,7 @@ export default class Palette extends Component<Props, State> {
         <div className="Palette-colors">{colorBoxes}</div>
 
         {/* Footer */}
-        <footer className="Palette-footer">
-          {paletteName}
-          <span className="emoji">{emoji}</span>
-        </footer>
+        <Footer paletteName={paletteName} emoji={emoji} />
       </div>
     );
   }
