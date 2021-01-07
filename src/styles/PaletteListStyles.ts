@@ -18,7 +18,9 @@ export default createStyles({
   nav: {
     display: 'flex',
     width: '100%',
+    padding: '1rem 0',
     justifyContent: 'space-between',
+    alignItems: 'center',
   },
   palettes: {
     boxSizing: 'border-box',
@@ -29,5 +31,17 @@ export default createStyles({
   },
   link: {
     textDecoration: 'none',
+  },
+  newPalette: {
+    textDecoration: 'none',
+    color: 'white',
+    padding: '.4rem .9rem',
+    background: '#45c932',
+    borderRadius: '6px',
+    transition: 'box-shadow .2s',
+
+    '&:hover': {
+      boxShadow: '0 5px 10px rgba(0,0,0, 0.4)',
+    },
   },
 });
