@@ -24,3 +24,8 @@ export interface Color {
 }
 
 export type ColorFormats = 'hex' | 'rgb' | 'rgba';
+
+export interface NewColor {
+  name: string;
+  color: string;
+}

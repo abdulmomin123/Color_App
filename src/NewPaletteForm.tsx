@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import clsx from 'clsx';
 import { ChromePicker, ColorResult } from 'react-color';
 import { withStyles, Theme, createStyles } from '@material-ui/core/styles';
+import * as Interfaces from './Interfaces';
 import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
@@ -12,6 +13,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Button from '@material-ui/core/Button';
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import DraggableColorBox from './DraggableColorBox';
 
 const drawerWidth = 400;
@@ -83,14 +85,30 @@ interface Props {
 interface State {
   open: boolean;
   currentColor: string;
-  colors: string[];
+  colors: Interfaces.NewColor[];
+  newName: string;
 }
 
 class NewColorPalette extends Component<Props, State> {
-  state = {
+  state: State = {
     open: true,
-    currentColor: 'purple',
-    colors: ['red', 'blue', 'green'],
+    colors: [],
+    currentColor: '#ff0000',
+    newName: '',
+  };
+
+  componentDidMount = () => {
+    // Rule for color name
+    ValidatorForm.addValidationRule('isColorNameUnique', (newName: string) =>
+      this.state.colors.every(
+        color => color.name.toLowerCase() !== newName.toLowerCase()
+      )
+    );
+
+    // Rule for the color iteself
+    ValidatorForm.addValidationRule('isColorUnique', _ =>
+      this.state.colors.every(color => color.color !== this.state.currentColor)
+    );
   };
 
   handleDrawerOpen = () => this.setState({ open: true });
@@ -100,14 +118,22 @@ class NewColorPalette extends Component<Props, State> {
   handleColorChange = (newColor: ColorResult) =>
     this.setState({ currentColor: newColor.hex });
 
+  handleNameChange = (e: React.ChangeEvent) =>
+    this.setState({ newName: (e.target as HTMLInputElement).value });
+
   addColor = () =>
     this.setState(st => {
-      return { colors: [...st.colors, this.state.currentColor] };
+      return {
+        colors: [
+          ...st.colors,
+          { color: this.state.currentColor, name: this.state.newName },
+        ],
+      };
     });
 
   render = () => {
     const { classes } = this.props;
-    const { open, currentColor, colors } = this.state;
+    const { open, currentColor, colors, newName } = this.state;
 
     return (
       <div className={classes.root}>
@@ -162,23 +188,37 @@ class NewColorPalette extends Component<Props, State> {
             color={currentColor}
             onChange={this.handleColorChange}
           />
-          <Button
-            variant="contained"
-            color="primary"
-            style={{ background: currentColor }}
-            onClick={this.addColor}
-          >
-            Add Color
-          </Button>
+          <ValidatorForm onSubmit={this.addColor}>
+            <TextValidator
+              name="colorName"
+              value={newName}
+              onChange={this.handleNameChange}
+              validators={['required', 'isColorNameUnique', 'isColorUnique']}
+              errorMessages={[
+                'Each color must have a name!',
+                'Color Name must be unique',
+                'Color already used!',
+              ]}
+            />
+
+            <Button
+              variant="contained"
+              color="primary"
+              style={{ background: currentColor }}
+              type="submit"
+            >
+              Add Color
+            </Button>
+          </ValidatorForm>
         </Drawer>
         <main
           className={clsx(classes.content, {
             [classes.contentShift]: open,
           })}
         >
-          <div className={classes.drawerHeader}></div>
+          <div className={classes.drawerHeader} />
           {colors.map(color => (
-            <DraggableColorBox key={color} background={color} />
+            <DraggableColorBox key={color.color} color={color} />
           ))}
         </main>
       </div>
