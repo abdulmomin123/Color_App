@@ -1,8 +1,13 @@
+export interface NewColor {
+  name: string;
+  color: string;
+}
+
 export interface StarterPalette {
   paletteName: string;
   id: string;
   emoji: string;
-  colors: { name: string; color: string }[];
+  colors: NewColor[];
 }
 
 export interface Palette {
@@ -24,8 +29,3 @@ export interface Color {
 }
 
 export type ColorFormats = 'hex' | 'rgb' | 'rgba';
-
-export interface NewColor {
-  name: string;
-  color: string;
-}

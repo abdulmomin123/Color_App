@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { RouterProps } from 'react-router';
 import clsx from 'clsx';
 import { ChromePicker, ColorResult } from 'react-color';
 import { withStyles, Theme, createStyles } from '@material-ui/core/styles';
@@ -77,9 +78,11 @@ const styles = (theme: Theme) =>
   });
 
 interface Props {
+  savePalette: (newPalette: Interfaces.StarterPalette) => void;
   classes: {
     [key: string]: string;
   };
+  rProps: RouterProps;
 }
 
 interface State {
@@ -131,6 +134,21 @@ class NewColorPalette extends Component<Props, State> {
       };
     });
 
+  savePalette = () => {
+    const paletteName = 'test palette';
+
+    const newPalette: Interfaces.StarterPalette = {
+      paletteName,
+      id: paletteName.replace(/ /g, '-'),
+      emoji: 'test',
+      colors: this.state.colors,
+    };
+
+    this.props.savePalette(newPalette);
+
+    this.props.rProps.history.push('/');
+  };
+
   render = () => {
     const { classes } = this.props;
     const { open, currentColor, colors, newName } = this.state;
@@ -157,6 +175,15 @@ class NewColorPalette extends Component<Props, State> {
             <Typography variant="h6" noWrap>
               Persistent drawer
             </Typography>
+
+            {/* Save Button */}
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={this.savePalette}
+            >
+              Save Palette
+            </Button>
           </Toolbar>
         </AppBar>
         <Drawer

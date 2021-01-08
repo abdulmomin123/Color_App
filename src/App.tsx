@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
+import * as Interfaces from './Interfaces';
 import { palettes } from './seedColor';
 import { generatePalette } from './colorHelpers';
 import NewPaletteForm from './NewPaletteForm';
@@ -7,8 +8,20 @@ import PaletteList from './PaletteList';
 import Palette from './Palette';
 import SingleColorPalette from './SingleColorPalette';
 
-class App extends Component {
-  findPalette = (id: string) => palettes.find(palette => palette.id === id);
+interface State {
+  palettes: Interfaces.StarterPalette[];
+}
+
+class App extends Component<{}, State> {
+  state = {
+    palettes,
+  };
+
+  findPalette = (id: string) =>
+    this.state.palettes.find(palette => palette.id === id);
+
+  savePalette = (newPalette: Interfaces.StarterPalette) =>
+    this.setState({ palettes: [...this.state.palettes, newPalette] });
 
   render = () => {
     return (
@@ -18,11 +31,17 @@ class App extends Component {
           <Route
             exact
             path="/"
-            render={() => <PaletteList palettes={palettes} />}
+            render={() => <PaletteList palettes={this.state.palettes} />}
           />
 
           {/* Create new palette route */}
-          <Route exact path="/palette/new" render={() => <NewPaletteForm />} />
+          <Route
+            exact
+            path="/palette/new"
+            render={rProps => (
+              <NewPaletteForm savePalette={this.savePalette} rProps={rProps} />
+            )}
+          />
 
           {/* Single color palette route */}
           <Route
