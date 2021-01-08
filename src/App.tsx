@@ -39,7 +39,11 @@ class App extends Component<{}, State> {
             exact
             path="/palette/new"
             render={rProps => (
-              <NewPaletteForm savePalette={this.savePalette} rProps={rProps} />
+              <NewPaletteForm
+                palettes={this.state.palettes}
+                savePalette={this.savePalette}
+                rProps={rProps}
+              />
             )}
           />
 
