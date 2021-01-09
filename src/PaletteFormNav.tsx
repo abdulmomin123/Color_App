@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Button from '@material-ui/core/Button';
-import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+import PaletteMetaForm from './PaletteMetaForm';
 
 const drawerWidth = 350;
 
@@ -60,25 +60,14 @@ class PaletteFormNav extends Component<Props, State> {
     paletteName: '',
   };
 
-  componentDidMount = () => {
-    // Rule for the palette name
-    ValidatorForm.addValidationRule('isPaletteNameUnique', paletteName =>
-      this.props.palettes.every(
-        palette =>
-          palette.paletteName.toLowerCase() !== paletteName.toLowerCase()
-      )
-    );
-  };
-
-  handleChange = (e: React.ChangeEvent) => {
-    const target = e.target as HTMLInputElement;
-
-    this.setState({ paletteName: target.value });
-  };
-
   render() {
-    const { open, classes, savePalette, handleDrawerOpen } = this.props;
-    const { paletteName } = this.state;
+    const {
+      open,
+      classes,
+      palettes,
+      savePalette,
+      handleDrawerOpen,
+    } = this.props;
 
     return (
       <div className={classes.root}>
@@ -105,23 +94,7 @@ class PaletteFormNav extends Component<Props, State> {
           </Toolbar>
 
           <div className={classes.navBtns}>
-            <ValidatorForm onSubmit={() => savePalette(paletteName)}>
-              <TextValidator
-                name="paletteName"
-                value={paletteName}
-                onChange={this.handleChange}
-                validators={['required', 'isPaletteNameUnique']}
-                errorMessages={[
-                  'Enter Palette Name',
-                  'Palette name must be unique!',
-                ]}
-              />
-
-              {/* Save Button */}
-              <Button type="submit" variant="contained" color="secondary">
-                Save Palette
-              </Button>
-            </ValidatorForm>
+            <PaletteMetaForm palettes={palettes} savePalette={savePalette} />
 
             {/* Go Back */}
             <Link to="/">
