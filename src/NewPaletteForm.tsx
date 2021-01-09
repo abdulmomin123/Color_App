@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { RouterProps } from 'react-router';
 import clsx from 'clsx';
 import { ChromePicker, ColorResult } from 'react-color';
+import arrayMove from 'array-move';
 import { withStyles, Theme, createStyles } from '@material-ui/core/styles';
 import * as Interfaces from './Interfaces';
 import Drawer from '@material-ui/core/Drawer';
@@ -15,7 +16,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Button from '@material-ui/core/Button';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
-import DraggableColorBox from './DraggableColorBox';
+import DraggableColorList from './DraggableColorList';
 
 const drawerWidth = 400;
 
@@ -97,7 +98,7 @@ interface State {
 class NewColorPalette extends Component<Props, State> {
   state: State = {
     open: true,
-    colors: [],
+    colors: this.props.palettes[0].colors,
     currentColor: '#ff0000',
     colorName: '',
     paletteName: '',
@@ -150,6 +151,11 @@ class NewColorPalette extends Component<Props, State> {
       };
     });
 
+  delteColorBox = (name: string) =>
+    this.setState({
+      colors: this.state.colors.filter(color => color.name !== name),
+    });
+
   savePalette = () => {
     const paletteName = this.state.paletteName;
 
@@ -163,6 +169,20 @@ class NewColorPalette extends Component<Props, State> {
     this.props.savePalette(newPalette);
 
     this.props.rProps.history.push('/');
+  };
+
+  clearPalette = () => this.setState({ colors: [] });
+
+  onSortEnd = ({
+    oldIndex,
+    newIndex,
+  }: {
+    oldIndex: number;
+    newIndex: number;
+  }) => {
+    this.setState(({ colors }) => ({
+      colors: arrayMove(colors, oldIndex, newIndex),
+    }));
   };
 
   render = () => {
@@ -229,7 +249,11 @@ class NewColorPalette extends Component<Props, State> {
 
           <Typography variant="h4">Design Your Palette</Typography>
           <div>
-            <Button variant="contained" color="secondary">
+            <Button
+              onClick={this.clearPalette}
+              variant="contained"
+              color="secondary"
+            >
               Clear Palette
             </Button>
             <Button variant="contained" color="primary">
@@ -269,9 +293,14 @@ class NewColorPalette extends Component<Props, State> {
           })}
         >
           <div className={classes.drawerHeader} />
-          {colors.map(color => (
-            <DraggableColorBox key={color.color} color={color} />
-          ))}
+
+          {/* Draggable colors */}
+          <DraggableColorList
+            onSortEnd={this.onSortEnd}
+            colors={colors}
+            delteColorBox={this.delteColorBox}
+            axis="xy"
+          />
         </main>
       </div>
     );
