@@ -80,28 +80,33 @@ class PaletteFormNav extends Component<Props, State> {
           <div className={classes.navBtns}>
             {/* Go Back */}
             <Link to="/">
-              <Button variant="contained" color="secondary">
+              <Button
+                className={classes.button}
+                variant="contained"
+                color="secondary"
+              >
                 Go Back
               </Button>
             </Link>
 
             <Button
+              className={classes.button}
               variant="contained"
               color="primary"
               onClick={this.toggleForm}
             >
               Save
             </Button>
-
-            {stage && (
-              <PaletteMetaForm
-                stage={stage}
-                toggleForm={this.toggleForm}
-                palettes={palettes}
-                savePalette={savePalette}
-              />
-            )}
           </div>
+
+          {stage && (
+            <PaletteMetaForm
+              stage={stage}
+              toggleForm={this.toggleForm}
+              palettes={palettes}
+              savePalette={savePalette}
+            />
+          )}
         </AppBar>
       </div>
     );
