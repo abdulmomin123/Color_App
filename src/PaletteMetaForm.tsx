@@ -7,6 +7,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import { Picker } from 'emoji-mart';
+import 'emoji-mart/css/emoji-mart.css';
 
 interface Props {
   palettes: Interfaces.StarterPalette[];
@@ -54,10 +56,14 @@ export default class PaletteMetaForm extends Component<Props, State> {
           <DialogTitle id="form-dialog-title">
             Choose You Palette Name
           </DialogTitle>
+
           <DialogContent>
             <DialogContentText>
               Please enter an unique palette name
             </DialogContentText>
+
+            <Picker />
+
             <ValidatorForm onSubmit={() => this.props.savePalette(paletteName)}>
               <TextValidator
                 name="paletteName"
