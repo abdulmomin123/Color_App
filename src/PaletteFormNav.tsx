@@ -57,23 +57,30 @@ interface Props {
   open: boolean;
   classes: Record<any, any>;
   palettes: Interfaces.StarterPalette[];
-  savePalette: (paletteName: string) => void;
+  savePalette: (palette: Interfaces.NewPalette) => void;
   handleDrawerOpen: () => void;
 }
 
 interface State {
   paletteName: string;
-  isFormShowing: boolean;
+  stage: string;
 }
 
 class PaletteFormNav extends Component<Props, State> {
   state = {
     paletteName: '',
-    isFormShowing: false,
+    stage: '',
   };
 
   toggleForm = () =>
-    this.setState({ isFormShowing: !this.state.isFormShowing });
+    this.setState({
+      stage:
+        this.state.stage === ''
+          ? 'form'
+          : this.state.stage === 'form'
+          ? 'emoji'
+          : '',
+    });
 
   render() {
     const {
@@ -84,7 +91,7 @@ class PaletteFormNav extends Component<Props, State> {
       handleDrawerOpen,
     } = this.props;
 
-    const { isFormShowing } = this.state;
+    const { stage } = this.state;
 
     return (
       <div className={classes.root}>
@@ -126,9 +133,9 @@ class PaletteFormNav extends Component<Props, State> {
               Save
             </Button>
 
-            {isFormShowing && (
+            {stage && (
               <PaletteMetaForm
-                isFormShowing={isFormShowing}
+                stage={stage}
                 toggleForm={this.toggleForm}
                 palettes={palettes}
                 savePalette={savePalette}

@@ -129,10 +129,10 @@ class NewPaletteForm extends Component<Props, State> {
       colors: this.state.colors.filter(color => color.name !== name),
     });
 
-  savePalette = (paletteName: string) => {
+  savePalette = (palette: Interfaces.NewPalette) => {
     const newPalette: Interfaces.StarterPalette = {
-      paletteName,
-      id: paletteName.replace(/ /g, '-'),
+      paletteName: palette.paletteName,
+      id: palette.paletteName.replace(/ /g, '-'),
       emoji: 'test',
       colors: this.state.colors,
     };

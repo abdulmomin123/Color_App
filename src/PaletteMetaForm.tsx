@@ -7,13 +7,13 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { Picker } from 'emoji-mart';
+import { Picker, EmojiData, BaseEmoji } from 'emoji-mart';
 import 'emoji-mart/css/emoji-mart.css';
 
 interface Props {
   palettes: Interfaces.StarterPalette[];
-  isFormShowing: boolean;
-  savePalette: (paletteName: string) => void;
+  stage: string;
+  savePalette: (palette: Interfaces.NewPalette) => void;
   toggleForm: () => void;
 }
 
@@ -42,18 +42,43 @@ export default class PaletteMetaForm extends Component<Props, State> {
     this.setState({ paletteName: target.value });
   };
 
+  savePalette = (e: EmojiData) => {
+    const emoji = (e as BaseEmoji).native;
+
+    const newPalette: Interfaces.NewPalette = {
+      paletteName: this.state.paletteName,
+      emoji,
+    };
+
+    this.props.savePalette(newPalette);
+  };
+
   render() {
     const { paletteName } = this.state;
-    const { isFormShowing, toggleForm } = this.props;
+    const { toggleForm, stage } = this.props;
 
     return (
       <div>
+        {/* Emoji picker */}
         <Dialog
-          open={isFormShowing}
+          open={stage === 'emoji'}
           onClose={toggleForm}
           aria-labelledby="form-dialog-title"
         >
-          <DialogTitle id="form-dialog-title">
+          <DialogTitle style={{ textAlign: 'center' }} id="form-dialog-title">
+            Choose a emoji
+          </DialogTitle>
+
+          {/* Emoji picker */}
+          <Picker onSelect={this.savePalette} />
+        </Dialog>
+
+        <Dialog
+          open={stage === 'form'}
+          onClose={toggleForm}
+          aria-labelledby="form-dialog-title"
+        >
+          <DialogTitle style={{ textAlign: 'center' }} id="form-dialog-title">
             Choose You Palette Name
           </DialogTitle>
 
@@ -62,9 +87,7 @@ export default class PaletteMetaForm extends Component<Props, State> {
               Please enter an unique palette name
             </DialogContentText>
 
-            <Picker />
-
-            <ValidatorForm onSubmit={() => this.props.savePalette(paletteName)}>
+            <ValidatorForm onSubmit={toggleForm}>
               <TextValidator
                 name="paletteName"
                 value={paletteName}
@@ -83,6 +106,7 @@ export default class PaletteMetaForm extends Component<Props, State> {
                 <Button onClick={toggleForm} color="primary">
                   Cancel
                 </Button>
+
                 {/* Save Button */}
                 <Button type="submit" variant="contained" color="secondary">
                   Save Palette

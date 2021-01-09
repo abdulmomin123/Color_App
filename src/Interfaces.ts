@@ -29,3 +29,8 @@ export interface Color {
 }
 
 export type ColorFormats = 'hex' | 'rgb' | 'rgba';
+
+export interface NewPalette {
+  paletteName: string;
+  emoji: string;
+}
