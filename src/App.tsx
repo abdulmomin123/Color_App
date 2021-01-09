@@ -14,11 +14,19 @@ interface State {
 
 class App extends Component<{}, State> {
   state = {
-    palettes,
+    palettes: JSON.parse(localStorage.getItem('palettes')!) || palettes,
   };
 
-  findPalette = (id: string) =>
-    this.state.palettes.find(palette => palette.id === id);
+  saveToLocalStorage = () =>
+    localStorage.setItem('palettes', JSON.stringify(this.state.palettes));
+
+  componentDidMount = () => this.saveToLocalStorage();
+  componentDidUpdate = () => this.saveToLocalStorage();
+
+  findPalette = (id: string) => {
+    const palettes = this.state.palettes as Interfaces.StarterPalette[];
+    return palettes.find(palette => palette.id === id);
+  };
 
   savePalette = (newPalette: Interfaces.StarterPalette) =>
     this.setState({ palettes: [...this.state.palettes, newPalette] });
