@@ -1,5 +1,6 @@
 import chroma from 'chroma-js';
 import { createStyles } from '@material-ui/styles';
+import sizes from './sizes';
 
 export default createStyles<any, any>({
   dynamicTextColor: {
@@ -19,6 +20,20 @@ export default createStyles<any, any>({
     '&:hover button': {
       opacity: 1,
       transition: 'opacity 0.5s',
+    },
+
+    // Media Queries
+    [sizes.down('lg')]: {
+      width: '25%',
+      height: props => (props.showingFullPalette ? '20%' : '33.3333%'),
+    },
+    [sizes.down('md')]: {
+      width: '50%',
+      height: props => (props.showingFullPalette ? '10%' : '20%'),
+    },
+    [sizes.down('xs')]: {
+      width: '100%',
+      height: props => (props.showingFullPalette ? '5%' : '10%'),
     },
   },
   seeMore: {
@@ -96,6 +111,10 @@ export default createStyles<any, any>({
       marginBottom: '0',
       padding: '1rem',
       textTransform: 'uppercase',
+
+      [sizes.down('xs')]: {
+        fontSize: '6rem',
+      },
     },
 
     '& p': {

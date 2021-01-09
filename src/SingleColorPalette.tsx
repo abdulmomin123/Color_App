@@ -5,6 +5,7 @@ import * as Interfaces from './Interfaces';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import ColorBox from './ColorBox';
+import sizes from './styles/sizes';
 
 const styles = createStyles({
   Palette: {
@@ -12,7 +13,6 @@ const styles = createStyles({
     display: 'flex',
     flexDirection: 'column',
   },
-
   PaletteColors: {
     height: '90vh',
   },
@@ -24,7 +24,7 @@ const styles = createStyles({
     display: 'inline-block',
     position: 'relative',
     cursor: 'pointer',
-    marginBottom: '-3.5px',
+    marginBottom: '-6.5px',
     opacity: 1,
 
     '& a': {
@@ -42,6 +42,19 @@ const styles = createStyles({
       lineHeight: '30px',
       color: 'white',
       textTransform: 'uppercase',
+    },
+
+    [sizes.down('lg')]: {
+      width: '25%',
+      height: '33.3333%',
+    },
+    [sizes.down('md')]: {
+      width: '50%',
+      height: '20%',
+    },
+    [sizes.down('xs')]: {
+      width: '100%',
+      height: '10%',
     },
   },
 });
