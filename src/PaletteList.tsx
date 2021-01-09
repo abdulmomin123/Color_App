@@ -7,20 +7,15 @@ import MiniPalette from './MiniPalette';
 
 interface Props {
   palettes: Interfacaes.StarterPalette[];
+  deletePalette: (id: string) => void;
   classes: Record<string, string>;
 }
 
 class PaletteList extends Component<Props> {
   render() {
-    const { palettes, classes } = this.props;
+    const { palettes, classes, deletePalette } = this.props;
     const miniPalettes = palettes.map(palette => (
-      <Link
-        className={classes.link}
-        key={palette.id}
-        to={`/palette/${palette.id}`}
-      >
-        <MiniPalette palette={palette} />
-      </Link>
+      <MiniPalette deletePalette={deletePalette} palette={palette} />
     ));
 
     return (

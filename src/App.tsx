@@ -31,15 +31,28 @@ class App extends Component<{}, State> {
   savePalette = (newPalette: Interfaces.StarterPalette) =>
     this.setState({ palettes: [...this.state.palettes, newPalette] });
 
+  deletePalette = (id: string) => {
+    const palettes = this.state.palettes as Interfaces.StarterPalette[];
+
+    this.setState({
+      palettes: palettes.filter(palette => palette.id !== id),
+    });
+  };
+
   render = () => {
     return (
       <div>
         <Switch>
-          {/* Home route */}
+          {/* Home route || Palette list route */}
           <Route
             exact
             path="/"
-            render={() => <PaletteList palettes={this.state.palettes} />}
+            render={() => (
+              <PaletteList
+                palettes={this.state.palettes}
+                deletePalette={this.deletePalette}
+              />
+            )}
           />
 
           {/* Create new palette route */}
