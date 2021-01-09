@@ -125,15 +125,16 @@ class PaletteFormNav extends Component<Props, State> {
             >
               Save
             </Button>
+
+            {isFormShowing && (
+              <PaletteMetaForm
+                isFormShowing={isFormShowing}
+                toggleForm={this.toggleForm}
+                palettes={palettes}
+                savePalette={savePalette}
+              />
+            )}
           </div>
-          {isFormShowing && (
-            <PaletteMetaForm
-              isFormShowing={isFormShowing}
-              toggleForm={this.toggleForm}
-              palettes={palettes}
-              savePalette={savePalette}
-            />
-          )}
         </AppBar>
       </div>
     );
