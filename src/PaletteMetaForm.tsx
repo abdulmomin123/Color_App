@@ -10,17 +10,17 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 interface Props {
   palettes: Interfaces.StarterPalette[];
+  isFormShowing: boolean;
   savePalette: (paletteName: string) => void;
+  toggleForm: () => void;
 }
 
 interface State {
-  open: boolean;
   paletteName: string;
 }
 
 export default class PaletteMetaForm extends Component<Props, State> {
   state = {
-    open: false,
     paletteName: '',
   };
 
@@ -40,37 +40,30 @@ export default class PaletteMetaForm extends Component<Props, State> {
     this.setState({ paletteName: target.value });
   };
 
-  handleClickOpen = () => this.setState({ open: true });
-
-  handleClose = () => this.setState({ open: false });
-
   render() {
-    const { open, paletteName } = this.state;
+    const { paletteName } = this.state;
+    const { isFormShowing, toggleForm } = this.props;
 
     return (
       <div>
-        <Button
-          variant="outlined"
-          color="primary"
-          onClick={this.handleClickOpen}
-        >
-          Open form dialog
-        </Button>
         <Dialog
-          open={open}
-          onClose={this.handleClose}
+          open={isFormShowing}
+          onClose={toggleForm}
           aria-labelledby="form-dialog-title"
         >
-          <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+          <DialogTitle id="form-dialog-title">
+            Choose You Palette Name
+          </DialogTitle>
           <DialogContent>
             <DialogContentText>
-              To subscribe to this website, please enter your email address
-              here. We will send updates occasionally.
+              Please enter an unique palette name
             </DialogContentText>
             <ValidatorForm onSubmit={() => this.props.savePalette(paletteName)}>
               <TextValidator
                 name="paletteName"
                 value={paletteName}
+                fullWidth
+                margin="normal"
                 onChange={this.handleChange}
                 validators={['required', 'isPaletteNameUnique']}
                 errorMessages={[
@@ -79,20 +72,18 @@ export default class PaletteMetaForm extends Component<Props, State> {
                 ]}
               />
 
-              {/* Save Button */}
-              <Button type="submit" variant="contained" color="secondary">
-                Save Palette
-              </Button>
+              <DialogActions>
+                {/* Cancle button */}
+                <Button onClick={toggleForm} color="primary">
+                  Cancel
+                </Button>
+                {/* Save Button */}
+                <Button type="submit" variant="contained" color="secondary">
+                  Save Palette
+                </Button>
+              </DialogActions>
             </ValidatorForm>
           </DialogContent>
-          <DialogActions>
-            <Button onClick={this.handleClose} color="primary">
-              Cancel
-            </Button>
-            <Button onClick={this.handleClose} color="primary">
-              Subscribe
-            </Button>
-          </DialogActions>
         </Dialog>
       </div>
     );
