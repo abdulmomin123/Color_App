@@ -7,12 +7,22 @@ import DeleteIcon from '@material-ui/icons/Delete';
 
 interface Props {
   palette: Interfaces.StarterPalette;
-  deletePalette: (id: string) => void;
+  openDialog: () => void;
+  paletteToDelete: (id: string) => void;
   classes: Record<string, string>;
 }
 
 class MiniPalette extends Component<Props> {
-  deletePalette = () => this.props.deletePalette(this.props.palette.id);
+  handleDelete = () => {
+    const {
+      palette: { id },
+      openDialog,
+      paletteToDelete,
+    } = this.props;
+
+    openDialog();
+    paletteToDelete(id);
+  };
 
   render = () => {
     const {
@@ -34,11 +44,11 @@ class MiniPalette extends Component<Props> {
         <DeleteIcon
           className={classes.deleteIcon}
           style={{ transition: 'all 0.3s ease-in-out' }}
-          onClick={this.deletePalette}
+          onClick={this.handleDelete}
         />
 
+        {/* The mini color boxes */}
         <Link to={`/palette/${id}`}>
-          {/* The mini color boxes */}
           <div className={classes.colors}>{miniColorBoxes}</div>
           <h5 className={classes.title}>
             {paletteName} <span className={classes.emoji}>{emoji}</span>{' '}
