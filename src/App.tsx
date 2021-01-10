@@ -35,7 +35,6 @@ class App extends Component<{}, State> {
 
   deletePalette = (id: string) => {
     const palettes = this.state.palettes as Interfaces.StarterPalette[];
-
     this.setState({
       palettes: palettes.filter(palette => palette.id !== id),
     });
@@ -109,7 +108,7 @@ class App extends Component<{}, State> {
                 />
 
                 {/* 404 Route */}
-                {/* <Route render={() => '404'} /> */}
+                <Route render={() => '404'} />
               </Switch>
             </CSSTransition>
           </TransitionGroup>
