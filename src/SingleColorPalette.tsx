@@ -1,63 +1,11 @@
 import { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { withStyles, createStyles } from '@material-ui/styles';
+import { withStyles } from '@material-ui/styles';
 import * as Interfaces from './Interfaces';
-import sizes from './styles/sizes';
+import styles from './styles/SingleColorPalette';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import ColorBox from './ColorBox';
-
-const styles = createStyles({
-  Palette: {
-    height: '100vh',
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  PaletteColors: {
-    height: '90vh',
-  },
-  goBack: {
-    width: '20%',
-    height: '50%',
-    background: '#000',
-    margin: '0 auto',
-    display: 'inline-block',
-    position: 'relative',
-    cursor: 'pointer',
-    marginBottom: '-6.5px',
-    opacity: 1,
-
-    '& a': {
-      width: '100px',
-      height: '30px',
-      position: 'absolute',
-      display: 'inline-block',
-      top: '50%',
-      left: '50%',
-      marginLeft: '-50px',
-      marginTop: '-15px',
-      textAlign: 'center',
-      textDecoration: 'none',
-      background: 'rgba(255, 255, 255, 0.3)',
-      lineHeight: '30px',
-      color: 'white',
-      textTransform: 'uppercase',
-    },
-
-    [sizes.down('lg')]: {
-      width: '25%',
-      height: '33.3333%',
-    },
-    [sizes.down('md')]: {
-      width: '50%',
-      height: '20%',
-    },
-    [sizes.down('xs')]: {
-      width: '100%',
-      height: '10%',
-    },
-  },
-});
 
 interface Props {
   palette: Interfaces.Palette;

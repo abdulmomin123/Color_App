@@ -67,6 +67,7 @@ class NewPaletteForm extends Component<Props, State> {
       randColor = allColors[randNum];
 
       isDuplicateColor = this.state.colors.some(
+        // eslint-disable-next-line
         color => color.name === randColor.name
       );
     }
