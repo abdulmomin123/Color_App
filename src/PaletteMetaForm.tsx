@@ -1,14 +1,14 @@
 import { Component } from 'react';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
-import * as Interfaces from './Interfaces';
+import { Picker, EmojiData, BaseEmoji } from 'emoji-mart';
+import 'emoji-mart/css/emoji-mart.css';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { Picker, EmojiData, BaseEmoji } from 'emoji-mart';
-import 'emoji-mart/css/emoji-mart.css';
+import * as Interfaces from './Interfaces';
 
 interface Props {
   palettes: Interfaces.StarterPalette[];
@@ -43,10 +43,11 @@ export default class PaletteMetaForm extends Component<Props, State> {
   };
 
   savePalette = (e: EmojiData) => {
+    const { paletteName } = this.state;
     const emoji = (e as BaseEmoji).native;
 
     const newPalette: Interfaces.NewPalette = {
-      paletteName: this.state.paletteName,
+      paletteName,
       emoji,
     };
 

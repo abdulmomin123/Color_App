@@ -1,10 +1,10 @@
 import { Component } from 'react';
 import { withStyles } from '@material-ui/styles';
 import * as Interfaces from './Interfaces';
-import styles from './styles/PaletteStyles';
 import ColorBox from './ColorBox';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import styles from './styles/PaletteStyles';
 
 interface Props {
   palette: Interfaces.Palette;
@@ -31,13 +31,13 @@ class Palette extends Component<Props, State> {
 
   render() {
     const { palette, classes } = this.props;
+    const { level, colorFormat } = this.state;
     const { paletteName, emoji } = palette;
-    const { level } = this.state;
     const colorBoxes = palette.colors[level].map(color => (
       <ColorBox
         showFullPalette={true}
         color={color}
-        format={this.state.colorFormat}
+        format={colorFormat}
         key={color.name}
       />
     ));
@@ -46,7 +46,7 @@ class Palette extends Component<Props, State> {
       <div className={classes.Palette}>
         {/* Navbar */}
         <Navbar
-          level={this.state.level}
+          level={level}
           changeLevel={this.changeLevel}
           changeColorFormat={this.changeColorFormat}
         />

@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
+import DeleteIcon from '@material-ui/icons/Delete';
 import * as Interfaces from './Interfaces';
 import styles from './styles/MiniPaletteStyles';
-import DeleteIcon from '@material-ui/icons/Delete';
 
 interface Props {
   palette: Interfaces.StarterPalette;
@@ -12,7 +12,7 @@ interface Props {
   classes: Record<string, string>;
 }
 
-class MiniPalette extends Component<Props> {
+class MiniPalette extends PureComponent<Props> {
   handleDelete = () => {
     const {
       palette: { id },

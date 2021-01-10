@@ -1,8 +1,8 @@
 import React from 'react';
 import { SortableElement } from 'react-sortable-hoc';
 import { withStyles } from '@material-ui/styles';
-import * as Interfaces from './Interfaces';
 import DeleteIcon from '@material-ui/icons/Delete';
+import * as Interfaces from './Interfaces';
 import styles from './styles/DraggableColorBox';
 
 interface Props {

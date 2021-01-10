@@ -3,13 +3,13 @@ import { RouterProps } from 'react-router';
 import clsx from 'clsx';
 import arrayMove from 'array-move';
 import { withStyles } from '@material-ui/core/styles';
-import * as Interfaces from './Interfaces';
 import Drawer from '@material-ui/core/Drawer';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Button from '@material-ui/core/Button';
+import * as Interfaces from './Interfaces';
 import DraggableColorList from './DraggableColorList';
 import PaletteFormNav from './PaletteFormNav';
 import ColorPickerForm from './ColorPickerForm';
@@ -54,8 +54,10 @@ class NewPaletteForm extends Component<Props, State> {
     this.setState({ colors: [...this.state.colors, color] });
 
   addRandomColor = () => {
+    const { palettes } = this.props;
+
     // Pick a random color from exisitng palettes
-    const allColors = this.props.palettes.map(palette => palette.colors).flat();
+    const allColors = palettes.map(palette => palette.colors).flat();
 
     const color = allColors[Math.floor(Math.random() * allColors.length)];
 

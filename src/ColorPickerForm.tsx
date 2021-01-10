@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { ChromePicker, ColorResult } from 'react-color';
-import * as Interfaces from './Interfaces';
-import Button from '@material-ui/core/Button';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import * as Interfaces from './Interfaces';
 import styles from './styles/ColorPickerFormStyles';
 
 interface Props {
@@ -25,16 +25,19 @@ class ColorPickerForm extends Component<Props, State> {
   };
 
   componentDidMount = () => {
+    const { colors } = this.props;
+    const { currentColor } = this.state;
+
     // Rule for color name
     ValidatorForm.addValidationRule('isColorNameUnique', (colorName: string) =>
-      this.props.colors.every(
+      colors.every(
         color => color.name.toLowerCase() !== colorName.toLowerCase()
       )
     );
 
     // Rule for the color iteself
     ValidatorForm.addValidationRule('isColorUnique', _ =>
-      this.props.colors.every(color => color.color !== this.state.currentColor)
+      colors.every(color => color.color !== currentColor)
     );
   };
 

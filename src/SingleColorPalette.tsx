@@ -2,10 +2,10 @@ import { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { withStyles, createStyles } from '@material-ui/styles';
 import * as Interfaces from './Interfaces';
+import sizes from './styles/sizes';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import ColorBox from './ColorBox';
-import sizes from './styles/sizes';
 
 const styles = createStyles({
   Palette: {

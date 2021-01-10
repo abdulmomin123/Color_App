@@ -1,14 +1,14 @@
 import { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import * as Interfaces from './Interfaces';
 import { palettes } from './seedColor';
 import { generatePalette } from './colorHelpers';
+import Page from './Page';
 import NewPaletteForm from './NewPaletteForm';
 import PaletteList from './PaletteList';
 import Palette from './Palette';
 import SingleColorPalette from './SingleColorPalette';
-import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import Page from './Page';
 
 interface State {
   palettes: Interfaces.StarterPalette[];
