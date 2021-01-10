@@ -1,16 +1,23 @@
 import chroma from 'chroma-js';
 import { createStyles } from '@material-ui/styles';
+import * as Interfaces from '../Interfaces';
 import sizes from './sizes';
 
-export default createStyles<any, any>({
+interface Props {
+  color: Interfaces.Color;
+  showFullPalette: boolean;
+}
+
+export default createStyles<any, Props>({
   dynamicTextColor: {
     color: ({ color: { hex } }: { color: { hex: string } }) =>
-      chroma(hex).luminance() >= 0.1 ? '#000' : '#fff',
+      chroma(hex).luminance() >= 0.1
+        ? 'rgba(0,0,0,.8)'
+        : 'rgba(255,255,255,.8)',
   },
   colorBox: {
     width: '20%',
-    height: ({ showFullPalette }: { showFullPalette: string }) =>
-      showFullPalette ? '25%' : '50%',
+    height: ({ showFullPalette }) => (showFullPalette ? '25%' : '50%'),
     margin: '0 auto',
     display: 'inline-block',
     position: 'relative',
@@ -25,15 +32,15 @@ export default createStyles<any, any>({
     // Media Queries
     [sizes.down('lg')]: {
       width: '25%',
-      height: props => (props.showingFullPalette ? '20%' : '33.3333%'),
+      height: ({ showFullPalette }) => (showFullPalette ? '20%' : '33.3333%'),
     },
     [sizes.down('md')]: {
       width: '50%',
-      height: props => (props.showingFullPalette ? '10%' : '20%'),
+      height: ({ showFullPalette }) => (showFullPalette ? '10%' : '20%'),
     },
     [sizes.down('xs')]: {
       width: '100%',
-      height: props => (props.showingFullPalette ? '5%' : '10%'),
+      height: ({ showFullPalette }) => (showFullPalette ? '5%' : '10%'),
     },
   },
   seeMore: {

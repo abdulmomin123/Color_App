@@ -1,7 +1,13 @@
+import chroma from 'chroma-js';
 import { createStyles } from '@material-ui/styles';
+import * as Interfaces from '../Interfaces';
 import sizes from './sizes';
 
-export default createStyles({
+interface Props {
+  color: Interfaces.NewColor;
+}
+
+export default createStyles<any, Props>({
   root: {
     position: 'relative',
     display: 'inline-block',
@@ -36,7 +42,10 @@ export default createStyles({
     left: '0px',
     bottom: '0px',
     padding: '10px',
-    color: 'rgba(0, 0, 0, 0.5)',
+    color: ({ color: { color } }) =>
+      chroma(color).luminance() >= 0.1
+        ? 'rgba(0,0,0,.8)'
+        : 'rgba(255,255,255,.8)',
     letterSpacing: '1px',
     textTransform: 'uppercase',
     fontSize: '12px',

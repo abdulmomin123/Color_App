@@ -10,6 +10,7 @@ import IconButton from '@material-ui/core/IconButton';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Button from '@material-ui/core/Button';
 import * as Interfaces from './Interfaces';
+import { palettes } from './seedColor';
 import DraggableColorList from './DraggableColorList';
 import PaletteFormNav from './PaletteFormNav';
 import ColorPickerForm from './ColorPickerForm';
@@ -40,7 +41,7 @@ class NewPaletteForm extends Component<Props, State> {
 
   state: State = {
     open: true,
-    colors: this.props.palettes[0].colors,
+    colors: palettes[0].colors,
     currentColor: '#ff0000',
     colorName: '',
     paletteName: '',
@@ -54,14 +55,23 @@ class NewPaletteForm extends Component<Props, State> {
     this.setState({ colors: [...this.state.colors, color] });
 
   addRandomColor = () => {
-    const { palettes } = this.props;
-
     // Pick a random color from exisitng palettes
     const allColors = palettes.map(palette => palette.colors).flat();
 
-    const color = allColors[Math.floor(Math.random() * allColors.length)];
+    let randNum: number;
+    let randColor: Interfaces.NewColor;
+    let isDuplicateColor = true;
 
-    this.setState({ colors: [...this.state.colors, color] });
+    while (isDuplicateColor) {
+      randNum = Math.floor(Math.random() * allColors.length);
+      randColor = allColors[randNum];
+
+      isDuplicateColor = this.state.colors.some(
+        color => color.name === randColor.name
+      );
+    }
+
+    this.setState({ colors: [...this.state.colors, randColor!] });
   };
 
   delteColorBox = (name: string) =>
