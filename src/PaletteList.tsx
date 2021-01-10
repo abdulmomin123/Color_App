@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import * as Interfacaes from './Interfaces';
 import styles from './styles/PaletteListStyles';
 import MiniPalette from './MiniPalette';
@@ -14,20 +15,23 @@ interface Props {
 class PaletteList extends Component<Props> {
   render() {
     const { palettes, classes, deletePalette } = this.props;
-    const miniPalettes = palettes.map(palette => (
-      <MiniPalette deletePalette={deletePalette} palette={palette} />
-    ));
 
     return (
       <div className={classes.root}>
         <div className={classes.container}>
           <nav className={classes.nav}>
-            <h1>React Colors</h1>
+            <h1 className={classes.heading}>React Colors</h1>
             <Link className={classes.newPalette} to="palette/new">
               Create Palette
             </Link>
           </nav>
-          <div className={classes.palettes}>{miniPalettes}</div>
+          <TransitionGroup className={classes.palettes}>
+            {palettes.map((palette, i) => (
+              <CSSTransition timeout={500} classNames="fades" key={i}>
+                <MiniPalette deletePalette={deletePalette} palette={palette} />
+              </CSSTransition>
+            ))}
+          </TransitionGroup>
         </div>
       </div>
     );
