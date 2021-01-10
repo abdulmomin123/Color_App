@@ -166,6 +166,7 @@ class NewPaletteForm extends Component<Props, State> {
 
           {/* Draggable colors */}
           <DraggableColorList
+            distance={10}
             onSortEnd={this.onSortEnd}
             colors={colors}
             delteColorBox={this.delteColorBox}
